@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class IndiIncrement {
 
-    public static final int TOKENS = Integer.getInteger("tokens", 10);
+    public static final int TOKENS = Integer.getInteger("tokens", 8);
 
     @State(Scope.Benchmark)
     public static class PlainShared {
@@ -59,6 +59,12 @@ public class IndiIncrement {
     @State(Scope.Thread)
     public static class VolatileLocal {
         private volatile int v;
+    }
+
+    @GenerateMicroBenchmark
+    public int baseline() {
+        BlackHole.consumeCPU(TOKENS);
+        return 42;
     }
 
     @GenerateMicroBenchmark

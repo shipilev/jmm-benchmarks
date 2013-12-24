@@ -26,27 +26,30 @@ forD = data.frame(
 
 indiD = data.frame(
     threads = a$V1,
-    plain_local = a$V10,
-    plain_local_err = a$V11,
-    plain_shared = a$V12,
-    plain_shared_err = a$V13,
-    volatile_local = a$V14,
-    volatile_local_err = a$V15,
-    volatile_shared = a$V16,
-    volatile_shared_err = a$V17
+    base = a$V10,
+    base_err = a$V11,
+    plain_local = a$V12,
+    plain_local_err = a$V13,
+    plain_shared = a$V14,
+    plain_shared_err = a$V15,
+    volatile_local = a$V16,
+    volatile_local_err = a$V17,
+    volatile_shared = a$V18,
+    volatile_shared_err = a$V19
 );
 
 ppD = data.frame(
     threads = a$V1,
-    plain = a$V18,
-    plain_err = a$V19,
-    volatile = a$V20,
-    volatile_err = a$V21
+    plain = a$V20,
+    plain_err = a$V21,
+    volatile = a$V22,
+    volatile_err = a$V23
 );
 
 forD;
 
 labels = c(
+        "base",
 	"plain_local",
 	"plain_shared",
 	"volatile_local",
@@ -54,6 +57,7 @@ labels = c(
 );
 
 colors = c(
+        "base" = "#000000",
 	"plain_local" = "#00FF00",
 	"plain_shared" = "#0000FF",
 	"volatile_local" = "#FFFF00",
@@ -61,6 +65,7 @@ colors = c(
 );
 
 hLabels = c(
+        "base" = "Baseline",
 	"plain_local" = "Plain (local)",
 	"plain_shared" = "Plain (shared)",
 	"volatile_local" = "Volatile (local)",
@@ -95,8 +100,10 @@ postscript(file="indi-loop.eps", onefile=FALSE, horizontal=FALSE, paper = "speci
 
 
 ggplot() + 
+ layer(data = indiD, mapping = aes(x = threads, y = base,  color="base"), geom="line", geom_params=list(size=2)) +
  layer(data = indiD, mapping = aes(x = threads, y = plain_local,  color="plain_local"), geom="line", geom_params=list(size=2)) +
  layer(data = indiD, mapping = aes(x = threads, y = plain_shared, color="plain_shared"), geom="line", geom_params=list(size=2)) +
+ layer(data = indiD, mapping = aes(x = threads, y = base, ymin = base - base_err, ymax = base + base_err, color="base"), geom="errorbar") + 
  layer(data = indiD, mapping = aes(x = threads, y = plain_local, ymin = plain_local - plain_local_err, ymax = plain_local + plain_local_err, color="plain_local"), geom="errorbar") + 
  layer(data = indiD, mapping = aes(x = threads, y = plain_shared, ymin = plain_shared - plain_shared_err, ymax = plain_shared + plain_shared_err, color="plain_shared"), geom="errorbar") +
  layer(data = indiD, mapping = aes(x = threads, y = volatile_local,  color="volatile_local"), geom="line", geom_params=list(size=2)) +
@@ -104,7 +111,7 @@ ggplot() +
  layer(data = indiD, mapping = aes(x = threads, y = volatile_local, ymin = volatile_local - volatile_local_err, ymax = volatile_local + volatile_local_err, color="volatile_local"), geom="errorbar") + 
  layer(data = indiD, mapping = aes(x = threads, y = volatile_shared, ymin = volatile_shared - volatile_shared_err, ymax = volatile_shared + volatile_shared_err, color="volatile_shared"), geom="errorbar") +
  scale_x_continuous() +
- scale_y_log10(limits = c(10, 100000), breaks=c(1, 10, 100, 1000, 10000, 100000), labels = trans_format('log10', math_format(10^.x))) + 
+ scale_y_log10(limits = c(10, 1000), breaks=c(1, 10, 100, 1000, 10000, 100000), labels = trans_format('log10', math_format(10^.x))) + 
  scale_colour_manual("", breaks = labels, labels = hLabels, values = colors) +
  labs(x = "threads", y = "operations/usec") +
  theme(axis.text.x = element_text(colour="grey20",size=16,face="plain"),
@@ -114,7 +121,7 @@ ggplot() +
        legend.text = element_text(colour="grey20",size=16,face="plain"),
        title       = element_text(colour="grey20",size=16,face="plain")
        ) + 
- opts(legend.position = "bottom", legend.direction="horizontal", title = "Incrementing the field continuously")
+ opts(legend.position = "bottom", legend.direction="horizontal", title = "Incrementing the field continuously (with a backoff)")
 
 postscript(file="ping-pong.eps", onefile=FALSE, horizontal=FALSE, paper = "special", width = 12, height = 5)
 
