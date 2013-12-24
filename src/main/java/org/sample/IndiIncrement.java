@@ -31,12 +31,15 @@ import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.logic.BlackHole;
 
 import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class IndiIncrement {
+
+    public static final int TOKENS = Integer.getInteger("tokens", 10);
 
     @State(Scope.Benchmark)
     public static class PlainShared {
@@ -60,21 +63,25 @@ public class IndiIncrement {
 
     @GenerateMicroBenchmark
     public int plain_shared(PlainShared s) {
+        BlackHole.consumeCPU(TOKENS);
         return s.v++;
     }
 
     @GenerateMicroBenchmark
     public int plain_local(PlainLocal s) {
+        BlackHole.consumeCPU(TOKENS);
         return s.v++;
     }
 
     @GenerateMicroBenchmark
     public int volatile_shared(VolatileShared s) {
+        BlackHole.consumeCPU(TOKENS);
         return s.v++;
     }
 
     @GenerateMicroBenchmark
     public int volatile_local(VolatileLocal s) {
+        BlackHole.consumeCPU(TOKENS);
         return s.v++;
     }
 
