@@ -111,7 +111,7 @@ ggplot() +
  layer(data = indiD, mapping = aes(x = threads, y = volatile_local, ymin = volatile_local - volatile_local_err, ymax = volatile_local + volatile_local_err, color="volatile_local"), geom="errorbar") + 
  layer(data = indiD, mapping = aes(x = threads, y = volatile_shared, ymin = volatile_shared - volatile_shared_err, ymax = volatile_shared + volatile_shared_err, color="volatile_shared"), geom="errorbar") +
  scale_x_continuous() +
- scale_y_log10(limits = c(10, 1000), breaks=c(1, 10, 100, 1000, 10000, 100000), labels = trans_format('log10', math_format(10^.x))) + 
+ scale_y_log10(limits = c(10, 3000), breaks=c(1, 10, 100, 1000, 10000, 100000), labels = trans_format('log10', math_format(10^.x))) + 
  scale_colour_manual("", breaks = labels, labels = hLabels, values = colors) +
  labs(x = "threads", y = "operations/usec") +
  theme(axis.text.x = element_text(colour="grey20",size=16,face="plain"),
