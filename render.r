@@ -60,7 +60,7 @@ colors = c(
         "base" = "#000000",
 	"plain_local" = "#00FF00",
 	"plain_shared" = "#0000FF",
-	"volatile_local" = "#FFFF00",
+	"volatile_local" = "#FFDD00",
 	"volatile_shared" = "#FF0000"
 );
 
@@ -84,9 +84,11 @@ ggplot() +
  layer(data = forD, mapping = aes(x = threads, y = volatile_local, ymin = volatile_local - volatile_local_err, ymax = volatile_local + volatile_local_err, color="volatile_local"), geom="errorbar") + 
  layer(data = forD, mapping = aes(x = threads, y = volatile_shared, ymin = volatile_shared - volatile_shared_err, ymax = volatile_shared + volatile_shared_err, color="volatile_shared"), geom="errorbar") +
  scale_x_continuous() +
- scale_y_log10(limits = c(10, 10000), breaks=c(1, 10, 100, 1000, 10000), labels = trans_format('log10', math_format(10^.x))) + 
+ scale_y_continuous(limits = c(10, 5000)) +
+# scale_y_log10(limits = c(10, 10000), breaks=c(1, 10, 100, 1000, 10000), labels = trans_format('log10', math_format(10^.x))) + 
  scale_colour_manual("", breaks = labels, labels = hLabels, values = colors) +
  labs(x = "threads", y = "operations/usec") +
+ theme_bw() +
  theme(axis.text.x = element_text(colour="grey20",size=16,face="plain"),
        axis.text.y = element_text(colour="grey20",size=16,face="plain"),
        axis.title.x = element_text(colour="grey20",size=16,face="plain"),
@@ -111,9 +113,11 @@ ggplot() +
  layer(data = indiD, mapping = aes(x = threads, y = volatile_local, ymin = volatile_local - volatile_local_err, ymax = volatile_local + volatile_local_err, color="volatile_local"), geom="errorbar") + 
  layer(data = indiD, mapping = aes(x = threads, y = volatile_shared, ymin = volatile_shared - volatile_shared_err, ymax = volatile_shared + volatile_shared_err, color="volatile_shared"), geom="errorbar") +
  scale_x_continuous() +
- scale_y_log10(limits = c(10, 3000), breaks=c(1, 10, 100, 1000, 10000, 100000), labels = trans_format('log10', math_format(10^.x))) + 
+ scale_y_continuous(limits = c(10, 2500)) +
+# scale_y_log10(limits = c(10, 3000), breaks=c(1, 10, 100, 1000, 10000, 100000), labels = trans_format('log10', math_format(10^.x))) + 
  scale_colour_manual("", breaks = labels, labels = hLabels, values = colors) +
  labs(x = "threads", y = "operations/usec") +
+ theme_bw() +
  theme(axis.text.x = element_text(colour="grey20",size=16,face="plain"),
        axis.text.y = element_text(colour="grey20",size=16,face="plain"),
        axis.title.x = element_text(colour="grey20",size=16,face="plain"),
@@ -131,9 +135,11 @@ ggplot() +
  layer(data = ppD, mapping = aes(x = threads, y = volatile,  color="volatile_shared"), geom="line", geom_params=list(size=2)) +
  layer(data = ppD, mapping = aes(x = threads, y = volatile, ymin = volatile - volatile_err, ymax = volatile + volatile_err, color="volatile_shared"), geom="errorbar") + 
  scale_x_continuous() +
- scale_y_log10(limits = c(10, 1000), breaks=c(1, 10, 100, 1000), labels = trans_format('log10', math_format(10^.x))) + 
+ scale_y_continuous(limits = c(10, 320)) +
+# scale_y_log10(limits = c(10, 1000), breaks=c(1, 10, 100, 1000), labels = trans_format('log10', math_format(10^.x))) + 
  scale_colour_manual("", breaks = labels, labels = hLabels, values = colors) +
  labs(x = "threads", y = "operations/usec") +
+ theme_bw() +
  theme(axis.text.x = element_text(colour="grey20",size=16,face="plain"),
        axis.text.y = element_text(colour="grey20",size=16,face="plain"),
        axis.title.x = element_text(colour="grey20",size=16,face="plain"),
