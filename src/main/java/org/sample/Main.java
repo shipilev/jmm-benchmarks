@@ -7,6 +7,7 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+import org.openjdk.jmh.runner.options.VerboseMode;
 import org.openjdk.jmh.runner.parameters.TimeValue;
 
 import java.util.SortedMap;
@@ -25,7 +26,7 @@ public class Main {
                     .warmupTime(TimeValue.seconds(1))
                     .forks(5)
                     .threads(t)
-                    .outputFormat(OutputFormatType.Silent)
+                    .verbosity(VerboseMode.SILENT)
                     .build();
 
             SortedMap<BenchmarkRecord, RunResult> results = new Runner(opt).run();
