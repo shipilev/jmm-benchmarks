@@ -26,9 +26,12 @@
 package org.sample.init;
 
 import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.GenerateMicroBenchmark;
+import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Warmup;
 import org.sample.init.specs.F0;
 import org.sample.init.specs.F1;
 import org.sample.init.specs.F16;
@@ -50,6 +53,9 @@ import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5)
+@Fork(10)
 public class Allocation {
 
     @GenerateMicroBenchmark
