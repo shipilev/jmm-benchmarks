@@ -72,19 +72,16 @@ public class AccessAtomicity {
     @GenerateMicroBenchmark
     public void write_plain_int() {
         plainInt = 42;
-        sinkInt = 42;
     }
 
     @GenerateMicroBenchmark
     public void write_volatile_int() {
         volatileInt = 42;
-        sinkInt = 42;
     }
 
     @GenerateMicroBenchmark
     public void write_ordered_int() {
         U.putOrderedInt(this, VOL_INT_OFFSET, 42);
-        sinkInt = 42;
     }
 
     // ---------------------------------------------
@@ -102,19 +99,16 @@ public class AccessAtomicity {
     @GenerateMicroBenchmark
     public void write_plain_long() {
         plainLong = 42L;
-        sinkLong = 42L;
     }
 
     @GenerateMicroBenchmark
     public void write_volatile_long() {
         volatileLong = 42L;
-        sinkLong = 42L;
     }
 
     @GenerateMicroBenchmark
     public void write_ordered_long() {
         U.putOrderedLong(this, VOL_LONG_OFFSET, 42L);
-        sinkLong = 42L;
     }
 
     // ---------------------------------------------
@@ -132,13 +126,11 @@ public class AccessAtomicity {
     @GenerateMicroBenchmark
     public void write_plain_float() {
         plainFloat = 42F;
-        sinkFloat = 42F;
     }
 
     @GenerateMicroBenchmark
     public void write_volatile_float() {
         volatileFloat = 42F;
-        sinkFloat = 42F;
     }
 
     // ---------------------------------------------
@@ -156,13 +148,11 @@ public class AccessAtomicity {
     @GenerateMicroBenchmark
     public void write_plain_double() {
         plainDouble = 42D;
-        sinkDouble = 42D;
     }
 
     @GenerateMicroBenchmark
     public void write_volatile_double() {
         volatileDouble = 42D;
-        sinkDouble = 42D;
     }
 
 }
