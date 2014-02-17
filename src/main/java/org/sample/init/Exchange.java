@@ -73,6 +73,7 @@ public class Exchange {
     public int acceptor(Control cnt, Arena a) {
         F4 obj;
         while (!cnt.stopMeasurement & (obj = a.obj) == null); // busy wait for slot
+        if (obj == null) return 0;
         int s = obj.f1 + obj.f2 + obj.f3 + obj.f4;
         a.obj = null;
         return s;
